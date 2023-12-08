@@ -7,3 +7,4 @@ Early recognition of clinical deterioration plays a pivotal role in a Rapid Resp
 # Method
 
 
+![BSPC-Method](https://github.com/nghianguyen7171/Temporal-Variational-Autoencoder-Model-for-In-hospital-Clinical-Emergency-Prediction/assets/35287087/40c5ff71-65b0-46d9-ab97-3d94e8243fc5)
