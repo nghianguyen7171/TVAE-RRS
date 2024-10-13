@@ -13,6 +13,7 @@ Early recognition of clinical deterioration plays a pivotal role in a Rapid Resp
 # Citation
 + BibTeX:
 @article{Nguyen2025,
+
 author = {Nguyen, Trong-nghia and Kim, Soo-hyung and Kho, Bo-gun and Do, Nhu-tai},
 doi = {10.1016/j.bspc.2024.106975},
 file = {:home/nghia/NGHIA_PERSONAL/Publication/Temporal Variational Autoencoder Model for In-hospital Clinical Emergency Prediction.pdf.pdf:pdf},
