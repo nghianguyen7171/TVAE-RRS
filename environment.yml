@@ -1,0 +1,29 @@
+name: tvae-rrs
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pip
+  - numpy=1.21.4
+  - pandas=1.3.4
+  - scikit-learn=1.0.2
+  - matplotlib=3.5.1
+  - seaborn=0.11.2
+  - jupyter=1.0.0
+  - notebook=6.4.6
+  - ipykernel=6.7.0
+  - pip:
+    - tensorflow==2.11.0
+    - keras-tuner==1.1.0
+    - xgboost==1.6.0
+    - optuna==3.0.0
+    - hydra-core==1.2.0
+    - omegaconf==2.2.3
+    - tensorboard==2.11.0
+    - tqdm==4.64.0
+    - scikit-learn==1.1.0
+    - imbalanced-learn==0.9.0
+    - plotly==5.10.0
+    - wandb==0.13.0
+    - mlflow==1.28.0

@@ -1,0 +1,175 @@
+# TVAE-RRS Experiment Configuration
+# This file contains default configuration parameters for experiments
+
+# Data Configuration
+data:
+  data_dir: "data"
+  raw_data_dir: "data/raw"
+  processed_data_dir: "data/processed"
+  external_data_dir: "data/external"
+  
+  # Dataset names
+  cnuh_dataset: "CNUH"
+  uv_dataset: "UV"
+  
+  # Window processing parameters
+  window_size: 16
+  stride: 1
+  prediction_horizon: 1
+  
+  # Feature lists
+  cnuh_features:
+    - "Albumin"
+    - "Hgb"
+    - "BUN"
+    - "Alkaline phosphatase"
+    - "WBC Count"
+    - "SBP"
+    - "Gender"
+    - "Total calcium"
+    - "RR"
+    - "Age"
+    - "Total bilirubin"
+    - "Creatinin"
+    - "ALT"
+    - "Lactate"
+    - "SaO2"
+    - "AST"
+    - "Glucose"
+    - "Sodium"
+    - "BT"
+    - "HR"
+    - "CRP"
+    - "Chloride"
+    - "Potassium"
+    - "platelet"
+    - "Total protein"
+  
+  # Data preprocessing
+  normalize_features: true
+  handle_missing: "forward_fill"
+  outlier_threshold: 3.0
+
+# Model Configuration
+model:
+  # Encoder architecture
+  encoder_lstm_layers: [100, 50, 25]
+  encoder_dropout: 0.2
+  encoder_recurrent_dropout: 0.1
+  
+  # VAE latent space
+  latent_dim: 8
+  beta: 1.0
+  
+  # Decoder architecture
+  reconstruction_lstm_layers: [25, 50, 100]
+  classification_fc_layers: [8, 64, 32, 16]
+  classification_dropout: 0.2
+  
+  # Loss weights
+  reconstruction_weight: 1.0
+  classification_weight: 1.0
+  kl_weight: 1.0
+  clinical_weight: 1.0
+  imbalance_weight: 1.0
+
+# Training Configuration
+training:
+  # Training parameters
+  batch_size: 32
+  epochs: 100
+  learning_rate: 0.001
+  optimizer: "adam"
+  
+  # Early stopping
+  early_stopping_patience: 20
+  early_stopping_monitor: "val_loss"
+  early_stopping_mode: "min"
+  
+  # Learning rate scheduling
+  lr_scheduler: "reduce_on_plateau"
+  lr_patience: 10
+  lr_factor: 0.5
+  lr_min: 1e-6
+  
+  # Validation
+  validation_split: 0.2
+  shuffle: true
+  
+  # Callbacks
+  use_tensorboard: true
+  use_wandb: false
+  save_best_only: true
+
+# Baseline Configuration
+baseline:
+  # RNN baseline
+  rnn_hidden_layers: [100, 50, 25]
+  rnn_dropout: 0.2
+  
+  # BiLSTM + Attention
+  bilstm_hidden_size: 100
+  attention_dim: 10
+  bilstm_dropout: 0.2
+  
+  # DCNN
+  dcnn_filters: [32, 64]
+  dcnn_kernel_sizes: [3, 3]
+  dcnn_dropout: 0.5
+  
+  # FCNN
+  fcnn_layers: [128, 64, 32]
+  fcnn_dropout: 0.3
+  
+  # XGBM
+  xgb_n_estimators: 100
+  xgb_max_depth: 6
+  xgb_learning_rate: 0.1
+  xgb_subsample: 0.8
+
+# Evaluation Configuration
+evaluation:
+  # Cross-validation
+  cv_folds: 5
+  cv_strategy: "stratified_kfold"
+  
+  # Metrics
+  primary_metrics: ["auroc", "auprc", "f1", "kappa"]
+  secondary_metrics: ["precision", "recall", "specificity"]
+  
+  # Threshold optimization
+  threshold_optimization: "youden"
+  
+  # Late alarm analysis
+  late_alarm_thresholds: [0.85, 0.90, 0.95, 0.99]
+  
+  # Visualization
+  plot_roc: true
+  plot_pr: true
+  plot_tsne: true
+  plot_dews_scores: true
+
+# Experiment Configuration
+experiment:
+  # Experiment tracking
+  experiment_name: "tvae_rrs_experiment"
+  run_name: null
+  tags: []
+  
+  # Reproducibility
+  seed: 42
+  deterministic: true
+  
+  # Output paths
+  output_dir: "experiments/results"
+  log_dir: "experiments/logs"
+  model_dir: "experiments/models"
+  
+  # Hyperparameter tuning
+  tune_hyperparameters: false
+  tune_trials: 50
+  tune_objective: "val_auroc"
+  
+  # Model comparison
+  compare_baselines: true
+  baseline_models: ["rnn", "bilstm_attention", "dcnn", "fcnn", "xgbm"]
